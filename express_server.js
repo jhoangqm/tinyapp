@@ -8,9 +8,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
 //Function that will generate a random string "unique" shortURL
+// Found a nice one liner on the internet
+// return Math.random().toString(36).replace(/[^a-z0-9]+/g, '').substring(0, 6);
 function generateRandomString() {
-  // Found a nice one liner on the internet
-  // return Math.random().toString(36).replace(/[^a-z0-9]+/g, '').substring(0, 6);
   const randomString = '';
   const charSet =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -36,8 +36,8 @@ app.get('/urls', (req, res) => {
 });
 
 app.post('/urls', (req, res) => {
-  console.log(req.body); // Log the POST request body to the console
-  res.send('Ok'); // Respond with 'Ok' (we will replace this)
+  urlDatabase[generateRandomString()] = req.body.longURL;
+  res.send('Ok');
 });
 
 app.get('/urls/new', (req, res) => {
