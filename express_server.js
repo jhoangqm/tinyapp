@@ -16,6 +16,16 @@ app.get('/', (req, res) => {
   res.send('Hello!');
 });
 
+app.get('/urls', (req, res) => {
+  const templateVars = { urls: urlDatabase };
+  res.render('urls_index', templateVars);
+});
+
+app.post('/urls', (req, res) => {
+  console.log(req.body); // Log the POST request body to the console
+  res.send('Ok'); // Respond with 'Ok' (we will replace this)
+});
+
 app.get('/urls/new', (req, res) => {
   res.render('urls_new');
 });
@@ -28,17 +38,8 @@ app.get('/urls/:shortURL', (req, res) => {
   res.render('urls_show', templateVars);
 });
 
-app.get('/urls', (req, res) => {
-  const templateVars = { urls: urlDatabase };
-  res.render('urls_index', templateVars);
-});
-
 app.get('/urls.json', (req, res) => {
   res.json(urlDatabase);
-});
-
-app.get('/hello', (req, res) => {
-  res.send('<html><body>Hello <b>World</b></body></hmtl>\n');
 });
 
 app.listen(PORT, () => {
