@@ -7,6 +7,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('view engine', 'ejs');
 
+//Function that will generate a random string "unique" shortURL
+function generateRandomString() {
+  // Found a nice one liner on the internet
+  // return Math.random().toString(36).replace(/[^a-z0-9]+/g, '').substring(0, 6);
+  const randomString = '';
+  const charSet = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  const setLength = charSet.length;
+  for (let i = 0; i <= 6; i++) {
+    randomString += charSet.charAt(Math.floor(Math.random() * setLength));
+  }
+  return randomString;
+}
+
 const urlDatabase = {
   b2xVn2: 'http://www.lighthouselabs.ca',
   '9sm5xK': 'http://www.google.com',
