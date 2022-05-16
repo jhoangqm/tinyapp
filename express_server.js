@@ -39,12 +39,6 @@ app.get('/urls/new', (req, res) => {
   res.render('urls_new');
 });
 
-app.post('/urls', (req, res) => {
-  const shortURL = generateRandomString();
-  urlDatabase[shortURL] = req.body.longURL;
-  res.redirect(`/urls/${shortURL}`);
-});
-
 app.get('/urls/:shortURL', (req, res) => {
   let templateVars = {
     shortURL: req.params.shortURL,
@@ -64,6 +58,12 @@ app.get('/u/:shortURL', (req, res) => {
 
 app.get('/urls.json', (req, res) => {
   res.json(urlDatabase);
+});
+
+app.post('/urls', (req, res) => {
+  const shortURL = generateRandomString();
+  urlDatabase[shortURL] = req.body.longURL;
+  res.redirect(`/urls/${shortURL}`);
 });
 
 app.listen(PORT, () => {
