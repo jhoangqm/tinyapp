@@ -13,6 +13,10 @@ app.get('/', (req, res) => {
   res.send('Hello!');
 });
 
+app.get('/urls/new', (req, res) => {
+  res.render('urls_new');
+});
+
 app.get('/urls/:shortURL', (req, res) => {
   const templateVars = {
     shortURL: req.params.shortURL,
