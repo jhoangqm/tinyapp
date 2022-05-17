@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = 8080; // default port 8080
 const bodyParser = require('body-parser');
+const res = require('express/lib/response');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -73,6 +74,9 @@ app.post('/urls/:shortURL/delete', (req, res) => {
 });
 
 app.post('/urls/:id');
+const shortURL = req.params.id;
+urlDatabase[shortURL] = req.body.newURL;
+res.redirect('/urls');
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}!`);
