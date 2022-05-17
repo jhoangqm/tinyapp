@@ -133,6 +133,20 @@ app.post('/login', (req, res) => {
   res.redirect('/urls');
 });
 
+app.post('/register', (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  const newUserID = generateRandomString();
+  users[newUserID] = {
+    id: newUserID,
+    email: email,
+    password: password,
+  };
+  res.cookie('user_id', newUserID);
+  console.log(users);
+  res.redirect('/urls');
+});
 /* Responds to '/logout' POST request by making the user click the logout button which will clear the cookie and make the user logout. Redirects to main page */
 app.post('/logout', (req, res) => {
   res.clearCookie('username');
