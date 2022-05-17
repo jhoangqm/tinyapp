@@ -30,10 +30,6 @@ const urlDatabase = {
   '9sm5xK': 'http://www.google.com',
 };
 
-app.get('/', (req, res) => {
-  res.send('Hello!');
-});
-
 app.get('/hello', (req, res) => {
   res.send('<html><body>Hello <b>World</b></body></html>\n');
 });
@@ -56,6 +52,7 @@ app.get('/urls/new', (req, res) => {
 /* Responds to '/urls/:shortURL' GET request with the rendered HTML of urls_show.ejs file with the data specific to :shortURL parameter */
 app.get('/urls/:shortURL', (req, res) => {
   let templateVars = {
+    username: req.cookies['username'],
     shortURL: req.params.shortURL,
     longURL: urlDatabase[req.params.shortURL],
   };
