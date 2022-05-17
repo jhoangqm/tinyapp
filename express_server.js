@@ -96,12 +96,14 @@ app.post('/urls/:id', (req, res) => {
   res.redirect('/urls');
 });
 
+/* Responds to '/login' POST request by making a user input their username in the database which redirects to the main page */
 app.post('/login', (req, res) => {
   const username = req.body.username;
   res.cookie('username', `${username}`);
   res.redirect('/urls');
 });
 
+/* Responds to '/logout' POST request by making the user click the logout button which will clear the cookie and make the user logout. Redirects to main page */
 app.post('/logout', (req, res) => {
   res.clearCookie('username');
   res.redirect('/urls');
