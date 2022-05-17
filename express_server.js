@@ -156,6 +156,7 @@ app.post('/login', (req, res) => {
   }
 });
 
+/* Responds to '/register' POST request by making user input an email and password and generates a unique userID as a cookie*/
 app.post('/register', (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
