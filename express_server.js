@@ -5,10 +5,9 @@ const bodyParser = require('body-parser');
 const res = require('express/lib/response');
 const cookieParser = require('cookie-parser');
 
-app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: true }));
-
 app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 //Function that will generate a random string "unique" shortURL
 // Found a nice one liner on the internet
