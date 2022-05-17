@@ -23,10 +23,34 @@ function generateRandomString() {
   return randomString;
 }
 
+/* this function will verify if the email already exists in the userDatabase */
+function checkIfUserAlreadyExists(email) {
+  for (const user in users) {
+    if (users[user].email === email) {
+      return true;
+    }
+  }
+  return false;
+}
+
 /* Keeps track of all LONG URLs INPUT and their created short URLS. */
 const urlDatabase = {
   b2xVn2: 'http://www.lighthouselabs.ca',
   '9sm5xK': 'http://www.google.com',
+};
+
+/* Store and access the users in the app */
+const users = {
+  userRandomID: {
+    id: 'userRandomID',
+    email: 'user@example.com',
+    password: 'purple-monkey-dinosaur',
+  },
+  user2RandomID: {
+    id: 'user2RandomID',
+    email: 'user2@example.com',
+    password: 'dishwasher-funk',
+  },
 };
 
 app.get('/', (req, res) => {
@@ -74,7 +98,7 @@ app.get('/u/:shortURL', (req, res) => {
   }
 });
 
-app.get('/registration', (req, res) => {
+app.get('/register', (req, res) => {
   let templateVars = {
     username: req.cookies['username'],
   };
