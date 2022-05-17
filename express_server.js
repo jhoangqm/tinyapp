@@ -137,9 +137,23 @@ app.post('/urls/:id', (req, res) => {
 
 /* Responds to '/login' POST request by making a user input their username in the database which redirects to the main page */
 app.post('/login', (req, res) => {
-  const username = req.body.username;
-  res.cookie('username', `${username}`);
-  res.redirect('/urls');
+  const email = req.body.email;
+  const password = req.body.password;
+
+  if (!checkIfUserAlreadyExists(email)) {
+    res.send(403, 'Invalid account, please try again');
+  } else {
+    let userID = checkIfUserAlreadyExists(email);
+    if (users[userID].password !== password) {
+      res.send(
+        403,
+        'The password you entered does not match with the associated email address'
+      );
+    } else {
+      res.cookie('user_id', userID);
+      res.redirect('/urls');
+    }
+  }
 });
 
 app.post('/register', (req, res) => {
@@ -148,9 +162,7 @@ app.post('/register', (req, res) => {
 
   if (!email || !password) {
     res.send(400, 'Incorrect email and password, please try again');
-  }
-
-  if (checkIfUserAlreadyExists(email)) {
+  } else if (checkIfUserAlreadyExists(email)) {
     res.send(400, 'An account already exists with the email address provided');
   }
 
