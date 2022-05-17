@@ -40,13 +40,19 @@ app.get('/urls.json', (req, res) => {
 
 /* Responds to '/urls' GET request with the rendered HTML of urls_index.ejs file. */
 app.get('/urls', (req, res) => {
-  let templateVars = { urls: urlDatabase };
+  let templateVars = {
+    urls: urlDatabase,
+    username: req.cookies['username'],
+  };
   res.render('urls_index', templateVars);
 });
 
 /* Responds to '/urls' GET request with the rendered HTML of urls_index.ejs file. */
 app.get('/urls/new', (req, res) => {
-  res.render('urls_new');
+  let templateVars = {
+    username: req.cookies['username'],
+  };
+  res.render('urls_new', templateVars);
 });
 
 /* Responds to '/urls/:shortURL' GET request with the rendered HTML of urls_show.ejs file with the data specific to :shortURL parameter */
