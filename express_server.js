@@ -137,6 +137,14 @@ app.post('/register', (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
+  if (!email || !password) {
+    res.send(400, 'Incorrect email and password, please try again');
+  }
+
+  if (checkIfUserAlreadyExists(email)) {
+    res.send(400, 'An account already exists with the email address provided');
+  }
+
   const newUserID = generateRandomString();
   users[newUserID] = {
     id: newUserID,
