@@ -65,7 +65,7 @@ app.get('/urls.json', (req, res) => {
 app.get('/urls', (req, res) => {
   let templateVars = {
     urls: urlDatabase,
-    username: req.cookies['username'],
+    user: users[req.cookies['user_id']],
   };
   res.render('urls_index', templateVars);
 });
@@ -73,7 +73,7 @@ app.get('/urls', (req, res) => {
 /* Responds to '/urls' GET request with the rendered HTML of urls_index.ejs file. */
 app.get('/urls/new', (req, res) => {
   let templateVars = {
-    username: req.cookies['username'],
+    user: users[req.cookies['user_id']],
   };
   res.render('urls_new', templateVars);
 });
@@ -81,7 +81,7 @@ app.get('/urls/new', (req, res) => {
 /* Responds to '/urls/:shortURL' GET request with the rendered HTML of urls_show.ejs file with the data specific to :shortURL parameter */
 app.get('/urls/:shortURL', (req, res) => {
   let templateVars = {
-    username: req.cookies['username'],
+    user: users[req.cookies['user_id']],
     shortURL: req.params.shortURL,
     longURL: urlDatabase[req.params.shortURL],
   };
@@ -100,7 +100,7 @@ app.get('/u/:shortURL', (req, res) => {
 
 app.get('/register', (req, res) => {
   let templateVars = {
-    username: req.cookies['username'],
+    user: users[req.cookies['user_id']],
   };
   res.render('urls_registration', templateVars);
 });
