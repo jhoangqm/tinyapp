@@ -12,7 +12,7 @@ app.set('view engine', 'ejs');
 // Found a nice one liner on the internet
 // return Math.random().toString(36).replace(/[^a-z0-9]+/g, '').substring(0, 6);
 function generateRandomString() {
-  const randomString = '';
+  let randomString = '';
   const charSet =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const setLength = charSet.length;
