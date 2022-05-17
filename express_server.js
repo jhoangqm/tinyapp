@@ -27,7 +27,7 @@ function generateRandomString() {
 function checkIfUserAlreadyExists(email) {
   for (const user in users) {
     if (users[user].email === email) {
-      return true;
+      return users[user].id;
     }
   }
   return false;
@@ -149,7 +149,7 @@ app.post('/register', (req, res) => {
 });
 /* Responds to '/logout' POST request by making the user click the logout button which will clear the cookie and make the user logout. Redirects to main page */
 app.post('/logout', (req, res) => {
-  res.clearCookie('username');
+  res.clearCookie('user_id');
   res.redirect('/urls');
 });
 
