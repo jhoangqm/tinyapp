@@ -18,13 +18,8 @@
     </div>
     </form>
       <% } else{ %>
-      <form method="GET" action="/login" class="form-inline">
-      <input class="form-control" type="text" name="login" placeholder="Enter username/email" style="width: 150px; margin: 1em">
-      <button type="submit" class="btn btn-outline-dark" style="margin: 1em">Login</button>
-    </form>
-      <form method="GET" action="/register" name="register">
-      <button type="submit" class="btn btn-outline-dark" style="margin: 1em">Register</button>
-    </form>
+        <a class="nav-item nav-link" href="/login" style="margin: 1em">Login</a>
+        <a class="nav-item nav-link" href="/register" style="margin: 1em">Register</a>
     <% } %>
   </nav>
 </header>
