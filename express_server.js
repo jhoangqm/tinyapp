@@ -22,6 +22,17 @@ function generateRandomString() {
   return randomString;
 }
 
+/* Object of userURLS that matches the userID*/
+function urlsForUser(id) {
+  const userURLS = {};
+  for (const URL in urlDatabase) {
+    if (urlDatabase[URL].userID === id) {
+      userURLS[URL] = urlDatabase[URL];
+    }
+  }
+  return userURLS;
+}
+
 /* this function will verify if the email already exists in the userDatabase */
 function checkIfUserAlreadyExists(email) {
   for (const user in users) {
@@ -63,7 +74,7 @@ app.get('/urls.json', (req, res) => {
 /* Responds to '/urls' GET request with the rendered HTML of urls_index.ejs file. */
 app.get('/urls', (req, res) => {
   let templateVars = {
-    urls: urlDatabase,
+    urls: urlsForUser(req.cookies['user_id']),
     user: users[req.cookies['user_id']],
   };
   res.render('urls_index', templateVars);
@@ -89,7 +100,9 @@ app.get('/urls/:shortURL', (req, res) => {
     user: users[req.cookies['user_id']],
     shortURL: req.params.shortURL,
     longURL: urlDatabase[req.params.shortURL].longURL,
+    urlUserID: urlDatabase[req.params.shortURL].userID,
   };
+  console.log(templateVars);
   res.render('urls_show', templateVars);
 });
 
