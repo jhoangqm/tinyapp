@@ -4,6 +4,7 @@ const PORT = 8080; // default port 8080
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
+const bcrypt = require('bcryptjs');
 
 app.set('view engine', 'ejs');
 // middleware
@@ -48,22 +49,17 @@ function checkIfUserAlreadyExists(email) {
 
 /* Keeps track of all LONG URLs INPUT and their created short URLS. */
 const urlDatabase = {
-  b2xVn2: { longURL: 'http://www.lighthouselabs.ca', userID: 'userRandomID' },
-  '9sm5xK': { longURL: 'http://www.google.com', userID: 'userRandomID' },
+  // b2xVn2: { longURL: 'http://www.lighthouselabs.ca', userID: 'userRandomID' },
+  // '9sm5xK': { longURL: 'http://www.google.com', userID: 'userRandomID' },
 };
 
 /* Store and access the users in the app */
 const users = {
-  userRandomID: {
-    id: 'userRandomID',
-    email: 'user@example.com',
-    password: 'purple-monkey-dinosaur',
-  },
-  user2RandomID: {
-    id: 'user2RandomID',
-    email: 'user2@example.com',
-    password: 'dishwasher-funk',
-  },
+  // userRandomID: {
+  //   id: 'userRandomID',
+  //   email: 'a@b.com',
+  //   password: '1234',
+  // },
 };
 
 app.get('/', (req, res) => {
@@ -179,7 +175,8 @@ app.post('/login', (req, res) => {
     res.send(403, 'Invalid account, please try again');
   } else {
     let userID = checkIfUserAlreadyExists(email);
-    if (users[userID].password !== password) {
+    // bcrypt compareSync function will compare both passwords
+    if (!bcrypt.compareSync(password, users[userID].password)) {
       res.send(
         403,
         'The password you entered does not match with the associated email address'
@@ -205,7 +202,8 @@ app.post('/register', (req, res) => {
   users[newUserID] = {
     id: newUserID,
     email: email,
-    password: password,
+    // this bcrypt will hash the password that is submitted via req.body.password
+    password: bcrypt.hashSync(password, 10),
   };
   res.cookie('user_id', newUserID);
   console.log(users);
