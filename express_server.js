@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = 8080; // default port 8080
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
+const cookieSession = requre('cookie-session');
 const morgan = require('morgan');
 const bcrypt = require('bcryptjs');
 
@@ -10,7 +10,13 @@ app.set('view engine', 'ejs');
 // middleware
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
+app.use(
+  cookieSession({
+    name: 'session',
+    keys: key1,
+    key2,
+  })
+);
 
 //Function that will generate a random string "unique" shortURL
 // Found a nice one liner on the internet
