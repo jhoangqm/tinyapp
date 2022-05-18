@@ -148,13 +148,11 @@ app.post('/urls/:shortURL/delete', (req, res) => {
   const shortURL = req.params.shortURL;
   const userID = req.cookies['user_id'];
   const userURLS = urlsForUser(userID);
-  for (let key in userURLS) {
-    if (Object.keys(key).includes(shortURL)) {
-      delete urlDatabase[shortURL];
-      res.redirect('/urls');
-    }
-    res.send(403);
+  if (Object.keys(userURLS).includes(shortURL)) {
+    delete urlDatabase[shortURL];
+    res.redirect('/urls');
   }
+  res.send(403);
 });
 
 /* Responds to '/urls/:id' POST request by updating an existing short URL in the database, redirects to main '/urls page */
@@ -162,13 +160,11 @@ app.post('/urls/:id', (req, res) => {
   const shortURL = req.params.id;
   const userID = req.cookies['user_id'];
   const userURLS = urlsForUser(userID);
-  for (let key in userURLS) {
-    if (Object.keys(key).includes(shortURL)) {
-      urlDatabase[shortURL].longURL = req.body.newURL;
-      res.redirect('/urls');
-    }
-    res.send(401);
+  if (Object.keys(userURLS).includes(shortURL)) {
+    urlDatabase[shortURL].longURL = req.body.newURL;
+    res.redirect('/urls');
   }
+  res.send(401);
 });
 
 /* Responds to '/login' POST request by making a user input their username in the database which redirects to the main page */
