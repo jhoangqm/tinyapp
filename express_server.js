@@ -5,6 +5,11 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const morgan = require('morgan');
 const bcrypt = require('bcryptjs');
+// const {
+//   generateRandomString,
+//   urlsForUser,
+//   checkIfUserAlreadyExists,
+// } = require('./helpers');
 
 app.set('view engine', 'ejs');
 // middleware
@@ -53,23 +58,15 @@ function checkIfUserAlreadyExists(email) {
   return false;
 }
 
-/* Keeps track of all LONG URLs INPUT and their created short URLS. */
-const urlDatabase = {
-  // b2xVn2: { longURL: 'http://www.lighthouselabs.ca', userID: 'userRandomID' },
-  // '9sm5xK': { longURL: 'http://www.google.com', userID: 'userRandomID' },
-};
+const urlDatabase = {};
 
 /* Store and access the users in the app */
-const users = {
-  // userRandomID: {
-  //   id: 'userRandomID',
-  //   email: 'a@b.com',
-  //   password: '1234',
-  // },
-};
+const users = {};
 
 app.get('/', (req, res) => {
-  res.redirect('/urls');
+  if (req.session.user_id) {
+    res.redirect('/urls');
+  } else res.redirect('/login');
 });
 
 app.get('/urls.json', (req, res) => {
@@ -213,8 +210,6 @@ app.post('/register', (req, res) => {
   };
   req.session.user_id = newUserID;
   console.log(users);
-  console.log(newUserID);
-  console.log(req.session.user_id);
   res.redirect('/urls');
 });
 
