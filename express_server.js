@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const PORT = 8080; // default port 8080
 const bodyParser = require('body-parser');
-const res = require('express/lib/response');
 const cookieParser = require('cookie-parser');
 
 app.set('view engine', 'ejs');
@@ -176,7 +175,6 @@ app.post('/register', (req, res) => {
   } else if (checkIfUserAlreadyExists(email)) {
     res.send(400, 'An account already exists with the email address provided');
   }
-
   const newUserID = generateRandomString();
   users[newUserID] = {
     id: newUserID,
@@ -187,6 +185,7 @@ app.post('/register', (req, res) => {
   console.log(users);
   res.redirect('/urls');
 });
+
 /* Responds to '/logout' POST request by making the user click the logout button which will clear the cookie and make the user logout. Redirects to main page */
 app.post('/logout', (req, res) => {
   res.clearCookie('user_id');
