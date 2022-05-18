@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = 8080; // default port 8080
 const bodyParser = require('body-parser');
-const cookieSession = requre('cookie-session');
+const cookieSession = require('cookie-session');
 const morgan = require('morgan');
 const bcrypt = require('bcryptjs');
 
@@ -213,12 +213,14 @@ app.post('/register', (req, res) => {
   };
   req.session.user_id = newUserID;
   console.log(users);
+  console.log(newUserID);
+  console.log(req.session.user_id);
   res.redirect('/urls');
 });
 
 /* POST request by making the user click the logout button which will clear the cookie and make the user logout. Redirects to main page */
 app.post('/logout', (req, res) => {
-  res.clearCookie('user_id');
+  req.session = null;
   res.redirect('/urls');
 });
 
