@@ -57,10 +57,8 @@ function checkIfUserAlreadyExists(email) {
   }
   return false;
 }
-
+/* --- Database --- */
 const urlDatabase = {};
-
-/* Store and access the users in the app */
 const users = {};
 
 app.get('/', (req, res) => {
