@@ -156,7 +156,7 @@ app.post('/login', (req, res) => {
           'The password you entered does not match with the associated email address'
         );
     } else {
-      res.cookie('user_id', userID);
+      req.session.user_id = userID;
       res.redirect('/urls');
     }
   }
