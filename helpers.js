@@ -6,7 +6,7 @@ function generateRandomString() {
   const charSet =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const setLength = charSet.length;
-  for (let i = 0; i <= 6; i++) {
+  for (let i = 0; i < 6; i++) {
     randomString += charSet.charAt(Math.floor(Math.random() * setLength));
   }
   return randomString;
@@ -27,14 +27,24 @@ function urlsForUser(id, urlDatabase) {
 function emailExist(email, userDatabase) {
   for (const user in userDatabase) {
     if (userDatabase[user].email === email) {
-      return userDatabase[user].id;
+      return true;
     }
   }
   return false;
 }
 
+/* this function will verify if an email and userdatabase matches, if it does it will return user ID */
+const userIDEmail = function (email, userDatabase) {
+  for (const user in userDatabase) {
+    if (userDatabase[user].email === email) {
+      return userDatabase[user].id;
+    }
+  }
+};
+
 module.exports = {
   generateRandomString,
   urlsForUser,
   emailExist,
+  userIDEmail,
 };
