@@ -5,13 +5,13 @@ TinyApp is a full stack web application built with Node and Express that allows 
 ## Final Product
 
 _Main page with a logged in user_
-!["screenshot description"](https://github.com/jhoangqm/tinyapp/blob/main/docs/shorturlpagewithuser.png?raw=true)
+!["Main page where the user is logged"](https://github.com/jhoangqm/tinyapp/blob/main/docs/shorturlpagewithuser.png?raw=true)
 _Registration Page_
-!["screenshot description"](https://github.com/jhoangqm/tinyapp/blob/main/docs/registerpage.png?raw=true)
+!["Registration page where a user can register"](https://github.com/jhoangqm/tinyapp/blob/main/docs/registerpage.png?raw=true)
 _Specific short URL page where the user is the owner of the short URL_
-!["screenshot description"](https://github.com/jhoangqm/tinyapp/blob/main/docs/shorturlpagewithuserurl.png?raw=true)
+!["User who creates shortURL can see their own"](https://github.com/jhoangqm/tinyapp/blob/main/docs/shorturlpagewithuserurl.png?raw=true)
 _Short URL page when there's no active user_
-!["screenshot description"](https://github.com/jhoangqm/tinyapp/blob/main/docs/shorturlpage.png?raw=true)
+!["Short URL page when there's no active user"](https://github.com/jhoangqm/tinyapp/blob/main/docs/shorturlpage.png?raw=true)
 _I would highly suggest to try the application if you want to know more about it_
 
 ## Dependencies
