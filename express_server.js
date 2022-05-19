@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const morgan = require('morgan');
 const bcrypt = require('bcryptjs');
-var methodOverride = require('method-override');
+let methodOverride = require('method-override');
 
 const {
   generateRandomString,
@@ -52,8 +52,8 @@ app.get('/urls', (req, res) => {
   res.render('urls_index', templateVars);
 });
 
-/* GET request with the rendered HTML of urls_index.ejs file. 
-if  the user is logged in, it will respond with the rendered HTML of urls_new.ejs 
+/* GET request with the rendered HTML of urls_index.ejs file.
+if  the user is logged in, it will respond with the rendered HTML of urls_new.ejs
 otherwise if the user is not logged, redirects to 'login'*/
 app.get('/urls/new', (req, res) => {
   let templateVars = {

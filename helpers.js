@@ -34,7 +34,7 @@ function emailExist(email, userDatabase) {
 }
 
 /* this function will verify if an email and userdatabase matches, if it does it will return user ID */
-const userIDEmail = function (email, userDatabase) {
+const userIDEmail = function(email, userDatabase) {
   for (const user in userDatabase) {
     if (userDatabase[user].email === email) {
       return userDatabase[user].id;
