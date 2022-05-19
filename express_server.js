@@ -167,23 +167,26 @@ app.post('/register', (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  if (!email || !password) {
-    res.status(400).send('Incorrect email and password, please try again');
+  if (email === '' || password === '') {
+    res
+      .status(400)
+      .send('Make sure that the fields are completed, please try again');
   } else if (emailExist(email, userDatabase)) {
     res
       .status(400)
       .send('An account already exists with the email address provided');
+  } else {
+    const newUserID = generateRandomString();
+    userDatabase[newUserID] = {
+      id: newUserID,
+      email: email,
+      // this bcrypt will hash the password that is submitted via req.body.password
+      password: bcrypt.hashSync(password, 10),
+    };
+    req.session.user_id = newUserID;
+    console.log(userDatabase);
+    res.redirect('/urls');
   }
-  const newUserID = generateRandomString();
-  userDatabase[newUserID] = {
-    id: newUserID,
-    email: email,
-    // this bcrypt will hash the password that is submitted via req.body.password
-    password: bcrypt.hashSync(password, 10),
-  };
-  req.session.user_id = newUserID;
-  console.log(userDatabase);
-  res.redirect('/urls');
 });
 
 /* POST request by making the user click the logout button which will clear the cookie and make the user logout. Redirects to main page */
