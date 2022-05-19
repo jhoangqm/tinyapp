@@ -5,7 +5,12 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const morgan = require('morgan');
 const bcrypt = require('bcryptjs');
-const { generateRandomString, urlsForUser, emailExist } = require('./helpers');
+const {
+  generateRandomString,
+  urlsForUser,
+  emailExist,
+  userIDEmail,
+} = require('./helpers');
 
 app.set('view engine', 'ejs');
 // middleware
@@ -142,7 +147,7 @@ app.post('/login', (req, res) => {
   if (!emailExist(email, userDatabase)) {
     res.status(403).send('Invalid account, please try again');
   } else {
-    let userID = emailExist(email, userDatabase);
+    let userID = userIDEmail(email, userDatabase);
     // bcrypt compareSync function will compare both passwords
     if (!bcrypt.compareSync(password, userDatabase[userID].password)) {
       res
