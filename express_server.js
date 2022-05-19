@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const morgan = require('morgan');
 const bcrypt = require('bcryptjs');
+var methodOverride = require('method-override');
+
 const {
   generateRandomString,
   urlsForUser,
@@ -15,6 +17,7 @@ const {
 app.set('view engine', 'ejs');
 // middleware
 app.use(morgan('dev'));
+app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cookieSession({
@@ -148,7 +151,6 @@ app.post('/login', (req, res) => {
     res.status(403).send('Invalid account, please try again');
   } else {
     let userID = userIDEmail(email, userDatabase);
-    // bcrypt compareSync function will compare both passwords
     if (!bcrypt.compareSync(password, userDatabase[userID].password)) {
       res
         .status(403)
@@ -180,7 +182,6 @@ app.post('/register', (req, res) => {
     userDatabase[newUserID] = {
       id: newUserID,
       email: email,
-      // this bcrypt will hash the password that is submitted via req.body.password
       password: bcrypt.hashSync(password, 10),
     };
     req.session.user_id = newUserID;
